@@ -41,4 +41,26 @@ public class PresidentServiceImpl implements PresidentService{
         });
         return PresidentMapper.toDto(presidentsRepository.getReferenceById(presidentDto.getId()));
     }
+
+    @Override
+    public PresidentDto updatePresidentPartial(PresidentDto presidentDto) {
+        presidentsRepository.findById(presidentDto.getId()).ifPresent(president -> {
+            if (presidentDto.getName() != null){
+                president.setName(presidentDto.getName());
+            }
+            if (presidentDto.getSurname() != null){
+                president.setSurname(presidentDto.getSurname());
+            }
+            if (presidentDto.getTermFrom() != null){
+                president.setTermFrom(presidentDto.getTermFrom());
+            }
+            if (presidentDto.getTermTo() != null){
+                president.setTermTo(presidentDto.getTermTo());
+            }
+            if (presidentDto.getPoliticalParty() != null){
+                president.setPoliticalParty(presidentDto.getPoliticalParty());
+            }
+        });
+        return PresidentMapper.toDto((presidentsRepository.getReferenceById(presidentDto.getId())));
+    }
 }

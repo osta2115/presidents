@@ -30,32 +30,11 @@ public class PresidentsController {
     public PresidentDto update(@RequestBody PresidentDto presidentDto) {
         return presidentService.updatePresident(presidentDto);
     }
-//
-//    @PatchMapping("update")
-//    public String updatePartial(@RequestBody President president) {
-//        President p = PresidentsDB.presidentRepository.get(president.getId().intValue());
-//        if (president.getName() != null) {
-//            p.setName(president.getName());
-//            log.info("President with id: {} - Name updated!", president.getId());
-//        }
-//        if (president.getSurname() != null) {
-//            p.setSurname(president.getSurname());
-//            log.info("President with id: {} - Surname updated!", president.getId());
-//        }
-//        if (president.getTermFrom() != null) {
-//            p.setTermFrom(president.getTermFrom());
-//            log.info("President with id: {} - TermFrom updated!", president.getId());
-//        }
-//        if (president.getTermTo() != null) {
-//            p.setTermTo(president.getTermTo());
-//            log.info("President with id: {} - TermTo updated!", president.getId());
-//        }
-//        if (president.getPoliticalParty() != null) {
-//            p.setPoliticalParty(president.getPoliticalParty());
-//            log.info("President with id: {} - Political party updated!", president.getId());
-//        }
-//        return "President updated!";
-//    }
+
+    @PatchMapping("update")
+    public PresidentDto updatePartial(@RequestBody PresidentDto presidentDto) {
+        return presidentService.updatePresidentPartial(presidentDto);
+    }
 //
 //    @DeleteMapping("delete/{id}")
 //    public String deleteById(@PathVariable int id) {
