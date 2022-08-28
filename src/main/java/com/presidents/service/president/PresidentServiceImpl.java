@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 
@@ -27,6 +29,20 @@ public class PresidentServiceImpl implements PresidentService{
     }
 
     @Override
+    public Set<PresidentDto> findPresidentsByName(String name) {
+        return presidentsRepository.findPresidentsByName(name).stream()
+                .map(PresidentMapper::toDto)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<PresidentDto> findPresidentsByPoliticalParty(String party) {
+        return presidentsRepository.findPresidentsByPoliticalParty(party).stream()
+                .map(PresidentMapper::toDto)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
     public PresidentDto savePresident(PresidentDto presidentDto) {
 
         return PresidentMapper.toDto(presidentsRepository.save(PresidentMapper.toEntity(presidentDto)));
@@ -34,20 +50,19 @@ public class PresidentServiceImpl implements PresidentService{
 
     @Override
     public PresidentDto updatePresident(PresidentDto presidentDto) {
-        presidentsRepository.findById(presidentDto.getId()).map(president -> {
+       return presidentsRepository.findById(presidentDto.getId()).map(president -> {
             president.setName(presidentDto.getName());
             president.setSurname(presidentDto.getSurname());
             president.setTermFrom(presidentDto.getTermFrom());
             president.setTermTo(presidentDto.getTermTo());
             president.setPoliticalParty(presidentDto.getPoliticalParty());
-            return president;
-        });
-        return PresidentMapper.toDto(presidentsRepository.getReferenceById(presidentDto.getId()));
+            return PresidentMapper.toDto(president);
+        }).get();
     }
 
     @Override
     public PresidentDto updatePresidentPartial(PresidentDto presidentDto) {
-       presidentsRepository.findById(presidentDto.getId()).map(president -> {
+       return presidentsRepository.findById(presidentDto.getId()).map(president -> {
             if (nonNull(presidentDto.getName())){
                 president.setName(presidentDto.getName());
             }
@@ -63,9 +78,8 @@ public class PresidentServiceImpl implements PresidentService{
             if (nonNull(presidentDto.getPoliticalParty())){
                 president.setPoliticalParty(presidentDto.getPoliticalParty());
             }
-            return president;
-        });
-        return PresidentMapper.toDto((presidentsRepository.getReferenceById(presidentDto.getId())));
+            return PresidentMapper.toDto(president);
+        }).get();
     }
 
     @Override

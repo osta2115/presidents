@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RestController
@@ -19,6 +20,16 @@ public class PresidentsController {
     @GetMapping("all")
     public List<PresidentDto> getAll() {
         return presidentService.getAllPresidents();
+    }
+
+    @GetMapping("find/{name}")
+    public Set<PresidentDto> findPresidentsByName(@PathVariable String name) {
+        return presidentService.findPresidentsByName(name);
+    }
+
+    @GetMapping("find-by-party/{party}")
+    public Set<PresidentDto> findPresidentsByPoliticalParty(@PathVariable String party) {
+        return presidentService.findPresidentsByPoliticalParty(party);
     }
 
     @PostMapping("save")
