@@ -52,7 +52,6 @@ public class PresidentServiceImpl implements PresidentService{
 
     @Override
     public PresidentDto savePresident(PresidentDto presidentDto) {
-
         return PresidentMapper.toDto(presidentsRepository.save(PresidentMapper.toEntity(presidentDto)));
     }
 
