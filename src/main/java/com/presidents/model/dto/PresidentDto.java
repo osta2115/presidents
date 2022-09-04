@@ -29,7 +29,7 @@ public class PresidentDto {
     private Timestamp termTo;
 
     @NotNull(message = "Political party is required")
-    @Pattern(regexp = "[Federalist]||[Unaffiliated]||[Democratic\\-Republican]",
-            message = "Political party should be one of: Federalist, Unaffiliated or Democratic-Republican")
+    //@Pattern(regexp = "[Federalist]||[Unaffiliated]||[Democratic\\-Republican]",
+           // message = "Political party should be one of: Federalist, Unaffiliated or Democratic-Republican")
     private String politicalParty;
 }

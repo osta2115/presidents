@@ -29,7 +29,7 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .toList();
 
-        return new ResponseEntity<>(getBody(HttpStatus.NOT_FOUND, errors.toString()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(getBody(HttpStatus.BAD_REQUEST, errors), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({EntityNotFoundExceptionOurs.class})
@@ -50,7 +50,7 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
 //                HttpStatus.BAD_REQUEST);
 //    }
 
-    private static Map<String, Object> getBody(HttpStatus status, String message) {
+    private static Map<String, Object> getBody(HttpStatus status, Object message) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", Instant.now());
         body.put("status", status.value());

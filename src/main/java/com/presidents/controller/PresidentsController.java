@@ -4,6 +4,7 @@ import com.presidents.model.dto.PresidentDto;
 import com.presidents.service.president.PresidentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,6 +34,7 @@ public class PresidentsController {
     }
 
     @PostMapping("save")
+    @ResponseStatus(HttpStatus.CREATED)
     public PresidentDto save(@Valid @RequestBody PresidentDto presidentDto) {
         return presidentService.savePresident(presidentDto);
     }
